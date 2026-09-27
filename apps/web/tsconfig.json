@@ -1,0 +1,24 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "noEmit": true,
+    "allowJs": false,
+    "incremental": true,
+    "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@roboforge/spec": ["../../packages/spec/src/index.ts"],
+      "@roboforge/catalog": ["../../packages/catalog/src/index.ts"],
+      "@roboforge/ir": ["../../packages/ir/src/index.ts"],
+      "@roboforge/validation": ["../../packages/validation/src/index.ts"],
+      "@roboforge/codegen": ["../../packages/codegen/src/index.ts"],
+      "@roboforge/codegen/export": ["../../packages/codegen/src/export.ts"],
+      "@roboforge/assistant": ["../../packages/assistant/src/index.ts"],
+      "@roboforge/db": ["../../packages/db/src/index.ts"]
+    }
+  },
+  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

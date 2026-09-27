@@ -1,0 +1,12 @@
+node_modules/
+.next/
+.data/
+*.log
+.env
+.env.local
+coverage/
+dist/
+apps/web/public/monaco/
+*.tsbuildinfo
+next-env.d.ts
+e2e/screenshots/

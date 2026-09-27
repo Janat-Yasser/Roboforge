@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "exactOptionalPropertyTypes": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@roboforge/spec": [
+        "packages/spec/src/index.ts"
+      ],
+      "@roboforge/catalog": [
+        "packages/catalog/src/index.ts"
+      ],
+      "@roboforge/ir": [
+        "packages/ir/src/index.ts"
+      ],
+      "@roboforge/validation": [
+        "packages/validation/src/index.ts"
+      ],
+      "@roboforge/codegen": [
+        "packages/codegen/src/index.ts"
+      ],
+      "@roboforge/codegen/export": [
+        "packages/codegen/src/export.ts"
+      ],
+      "@roboforge/assistant": [
+        "packages/assistant/src/index.ts"
+      ],
+      "@roboforge/db": [
+        "packages/db/src/index.ts"
+      ]
+    }
+  }
+}

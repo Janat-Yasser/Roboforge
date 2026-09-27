@@ -1,0 +1,45 @@
+# Local stack: Postgres + web + build worker.
+# The worker talks to the host Docker daemon to start sandbox containers (build them first:
+# infra/sandbox/build.sh). Mounting the Docker socket gives the worker container control of the
+# daemon — in production run workers on dedicated, isolated hosts (or use a rootless / gVisor runtime).
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: roboforge
+      POSTGRES_PASSWORD: roboforge
+      POSTGRES_DB: roboforge
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U roboforge"]
+      interval: 3s
+      retries: 20
+
+  web:
+    build: { context: ., dockerfile: infra/web.Dockerfile }
+    environment:
+      DATABASE_URL: postgresql://roboforge:roboforge@db:5432/roboforge
+      ARTIFACT_DIR: /data/artifacts
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    ports: ["3000:3000"]
+    volumes: [artifacts:/data/artifacts]
+    depends_on: { db: { condition: service_healthy } }
+
+  worker:
+    build: { context: ., dockerfile: infra/web.Dockerfile }
+    command: ["pnpm", "worker"]
+    environment:
+      DATABASE_URL: postgresql://roboforge:roboforge@db:5432/roboforge
+      ARTIFACT_DIR: /data/artifacts
+      TMPDIR: /data/work
+    volumes:
+      - artifacts:/data/artifacts
+      # Workspaces are bind-mounted into sandbox containers, so they must live at the same path on the host.
+      - /tmp/roboforge-work:/data/work
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on: { db: { condition: service_healthy } }
+
+volumes:
+  pgdata:
+  artifacts:
