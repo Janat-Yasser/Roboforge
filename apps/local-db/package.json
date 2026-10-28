@@ -1,0 +1,17 @@
+{
+  "name": "@roboforge/local-db",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Zero-install local PostgreSQL (PGlite over the Postgres wire protocol) for development.",
+  "scripts": {
+    "start": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@electric-sql/pglite-socket": "^0.2.11"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
+  }
+}

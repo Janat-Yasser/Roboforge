@@ -1,4 +1,5 @@
 "use client";
+import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { marked } from "marked";
@@ -14,6 +15,7 @@ const DOCS = [
 /** Renders the generated documentation (Markdown + Mermaid diagrams). */
 export default function DocsPage() {
   const projectId = useProject((s) => s.project!.id);
+  const { resolvedTheme } = useTheme();
   const [doc, setDoc] = useState(DOCS[0]!.path);
   const [html, setHtml] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
@@ -32,12 +34,18 @@ export default function DocsPage() {
   }, [doc, projectId]);
 
   useEffect(() => {
-    if (!html || !ref.current) return;
+    const el = ref.current;
+    if (!html || !el) return;
+    let cancelled = false;
     import("mermaid").then(({ default: mermaid }) => {
-      mermaid.initialize({ startOnLoad: false, theme: "dark", securityLevel: "strict" });
-      mermaid.run({ nodes: ref.current!.querySelectorAll("pre.mermaid") }).catch(() => {});
+      if (cancelled || !el.isConnected) return; // navigated away before mermaid loaded
+      mermaid.initialize({ startOnLoad: false, theme: resolvedTheme === "light" ? "default" : "dark", securityLevel: "strict" });
+      mermaid.run({ nodes: el.querySelectorAll("pre.mermaid") }).catch(() => {});
     });
-  }, [html]);
+    return () => {
+      cancelled = true;
+    };
+  }, [html, resolvedTheme]);
 
   return (
     <div className="flex min-h-0 flex-1">

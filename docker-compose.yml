@@ -1,6 +1,6 @@
 # Local stack: Postgres + web + build worker.
 # The worker talks to the host Docker daemon to start sandbox containers (build them first:
-# infra/sandbox/build.sh). Mounting the Docker socket gives the worker container control of the
+# pnpm sandbox:build). Mounting the Docker socket gives the worker container control of the
 # daemon — in production run workers on dedicated, isolated hosts (or use a rootless / gVisor runtime).
 services:
   db:

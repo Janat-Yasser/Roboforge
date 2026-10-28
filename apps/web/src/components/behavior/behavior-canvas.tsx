@@ -17,6 +17,7 @@ import {
   type NodeChange,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
+import { useTheme } from "next-themes";
 import { newId, type BehaviorNodeKind, type Severity } from "@roboforge/spec";
 import { useAnalysis, useProject } from "@/lib/store";
 import { BehaviorNodeView, type BehaviorFlowNode } from "./behavior-node";
@@ -27,6 +28,7 @@ export const NODE_DRAG_MIME = "application/roboforge-node";
 const PORT_STROKE: Record<string, string> = { true: "var(--color-ok)", false: "var(--color-err)", error: "var(--color-warn)" };
 
 function Inner() {
+  const { resolvedTheme } = useTheme();
   const spec = useProject((s) => s.spec)!;
   const catalog = useProject((s) => s.catalog);
   const selection = useProject((s) => s.selection);
@@ -120,10 +122,11 @@ function Inner() {
       fitViewOptions={{ padding: 0.2 }}
       minZoom={0.2}
       proOptions={{ hideAttribution: true }}
+      colorMode={resolvedTheme === "light" ? "light" : "dark"}
     >
-      <Background variant={BackgroundVariant.Lines} gap={24} color="#18212e" />
+      <Background variant={BackgroundVariant.Lines} gap={24} color="var(--rf-grid)" />
       <Controls />
-      <MiniMap pannable zoomable maskColor="rgba(13,17,23,0.7)" />
+      <MiniMap pannable zoomable maskColor="var(--rf-minimap-mask)" bgColor="var(--rf-panel)" />
     </ReactFlow>
   );
 }

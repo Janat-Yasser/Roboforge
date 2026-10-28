@@ -59,13 +59,13 @@ export const ComponentNode = memo(function ComponentNode({ data, selected }: Nod
   return (
     <div
       className={clsx(
-        "min-w-[190px] rounded-md border bg-panel shadow-lg",
-        selected ? "border-accent" : "border-border-strong",
+        "min-w-[190px] rounded-xl border bg-panel shadow-[var(--rf-shadow)] transition-[box-shadow,border-color,transform] duration-200 hover:shadow-[var(--rf-shadow-lg)]",
+        selected ? "border-accent shadow-[0_0_0_4px_color-mix(in_srgb,var(--rf-accent)_20%,transparent)]" : "border-border-strong",
         data.severity && SEV_RING[data.severity],
       )}
     >
-      <div className="flex items-center gap-2 rounded-t-md border-b border-border px-2 py-1.5" style={{ background: `color-mix(in srgb, ${color} 14%, var(--color-panel))` }}>
-        <span className="size-2 rounded-full" style={{ background: color }} />
+      <div className="flex items-center gap-2 rounded-t-xl border-b border-border px-2.5 py-2" style={{ background: `color-mix(in srgb, ${color} 14%, var(--color-panel))` }}>
+        <span className="size-2.5 rounded-full shadow-[0_0_8px_currentColor]" style={{ background: color, color }} />
         <div className="min-w-0">
           <div className="truncate font-mono text-[12px] font-semibold">{instance.name}</div>
           <div className="truncate text-[10px] text-muted">{def.name}</div>

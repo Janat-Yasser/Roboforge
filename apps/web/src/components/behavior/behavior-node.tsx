@@ -25,15 +25,16 @@ export const BehaviorNodeView = memo(function BehaviorNodeView({ data, selected 
   return (
     <div
       className={clsx(
-        "w-[210px] border bg-panel shadow-lg",
-        isEvent ? "rounded-2xl" : n.kind === "condition" ? "rounded-md" : "rounded-md",
-        selected ? "border-accent" : "border-border-strong",
+        "w-[210px] border border-l-4 bg-panel shadow-[var(--rf-shadow)] transition-[box-shadow,border-color] duration-200 hover:shadow-[var(--rf-shadow-lg)]",
+        isEvent ? "rounded-2xl" : "rounded-xl",
+        selected ? "border-accent shadow-[0_0_0_4px_color-mix(in_srgb,var(--rf-accent)_20%,transparent)]" : "border-border-strong",
         data.severity === "error" && "ring-2 ring-err",
         data.severity === "warning" && "ring-2 ring-warn",
       )}
+      style={{ borderLeftColor: color }}
     >
       {!isEvent && <Handle type="target" position={Position.Top} id="in" style={{ width: 10, height: 10, background: "var(--color-panel-2)", borderColor: color }} />}
-      <div className={clsx("flex items-center gap-1.5 border-b border-border px-2.5 py-1", isEvent ? "rounded-t-2xl" : "rounded-t-md")} style={{ background: `color-mix(in srgb, ${color} 16%, var(--color-panel))` }}>
+      <div className={clsx("flex items-center gap-1.5 border-b border-border px-2.5 py-1", isEvent ? "rounded-tr-2xl" : "rounded-tr-xl")} style={{ background: `color-mix(in srgb, ${color} 16%, var(--color-panel))` }}>
         <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color }}>{info.title}</span>
         {data.pc !== undefined && <span className="ml-auto font-mono text-[9px] text-faint" title="Program counter in generated code">pc {data.pc}</span>}
       </div>

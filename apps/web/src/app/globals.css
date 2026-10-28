@@ -1,35 +1,156 @@
 @import "tailwindcss";
 
-/* Engineering IDE theme — dark, high-density, colour reserved for status and signal classes. */
+/* Theme switching is class-based (next-themes puts .dark on <html>). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * RoboForge design tokens. Every colour is a CSS variable so light and dark themes share all
+ * component styles; Tailwind utilities (bg-panel, text-muted, border-border, …) resolve to them.
+ */
 @theme {
-  --color-bg: #0d1117;
-  --color-panel: #121821;
-  --color-panel-2: #171f2b;
-  --color-raised: #1d2735;
-  --color-border: #263244;
-  --color-border-strong: #33435a;
-  --color-fg: #d7dee8;
-  --color-muted: #8a98ab;
-  --color-faint: #5d6b7e;
-  --color-accent: #4f9cf9;
-  --color-accent-strong: #2f7fe6;
-  --color-ok: #3fb97c;
-  --color-warn: #e3a92b;
-  --color-err: #f0625d;
-  --color-info: #5aa9e6;
+  --color-bg: var(--rf-bg);
+  --color-bg-soft: var(--rf-bg-soft);
+  --color-panel: var(--rf-panel);
+  --color-panel-2: var(--rf-panel-2);
+  --color-raised: var(--rf-raised);
+  --color-border: var(--rf-border);
+  --color-border-strong: var(--rf-border-strong);
+  --color-fg: var(--rf-fg);
+  --color-muted: var(--rf-muted);
+  --color-faint: var(--rf-faint);
+  --color-accent: var(--rf-accent);
+  --color-accent-strong: var(--rf-accent-strong);
+  --color-accent-2: var(--rf-accent-2);
+  --color-accent-3: var(--rf-accent-3);
+  --color-ok: var(--rf-ok);
+  --color-warn: var(--rf-warn);
+  --color-err: var(--rf-err);
+  --color-info: var(--rf-info);
 
-  /* signal classes (wires, pins) */
-  --color-sig-power: #ef5b57;
-  --color-sig-ground: #7f8a99;
-  --color-sig-logic: #58a6ff;
-  --color-sig-i2c: #b78cf7;
-  --color-sig-uart: #3cc6b8;
-  --color-sig-can: #f2a541;
-  --color-sig-motor: #e879c6;
-  --color-sig-pwm: #7ee787;
+  --color-sig-power: var(--rf-sig-power);
+  --color-sig-ground: var(--rf-sig-ground);
+  --color-sig-logic: var(--rf-sig-logic);
+  --color-sig-i2c: var(--rf-sig-i2c);
+  --color-sig-uart: var(--rf-sig-uart);
+  --color-sig-can: var(--rf-sig-can);
+  --color-sig-motor: var(--rf-sig-motor);
+  --color-sig-pwm: var(--rf-sig-pwm);
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-green: var(--rf-green);
+  --color-purple: var(--rf-purple);
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-gradient: gradient-pan 8s ease infinite;
+  --animate-fade-up: fade-up 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) infinite;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-marquee-slow: marquee 70s linear infinite;
+  --animate-dash: dash 1.6s linear infinite;
+}
+
+/*
+ * Bright maker palette: clean white surfaces, navy ink, an electric-blue primary and flat
+ * yellow / coral / green / purple accents used as solid shapes (never as gradients).
+ */
+:root {
+  color-scheme: light;
+  --rf-bg: #f5f7fb;
+  --rf-bg-soft: #edf1f8;
+  --rf-panel: #ffffff;
+  --rf-panel-2: #f7f9fc;
+  --rf-raised: #eef2f8;
+  --rf-border: #e1e7f0;
+  --rf-border-strong: #c7d1e0;
+  --rf-fg: #0e1b3d;
+  --rf-muted: #4f5f80;
+  --rf-faint: #8794ae;
+  --rf-accent: #1e6bff;
+  --rf-accent-strong: #0b4fd6;
+  --rf-accent-2: #ffc933;
+  --rf-accent-3: #ff5a5f;
+  --rf-green: #14b886;
+  --rf-purple: #7c5cff;
+  --rf-ok: #12a574;
+  --rf-warn: #d98a00;
+  --rf-err: #e5484d;
+  --rf-info: #1e6bff;
+  --rf-sig-power: #e5484d;
+  --rf-sig-ground: #6b7690;
+  --rf-sig-logic: #1e6bff;
+  --rf-sig-i2c: #7c5cff;
+  --rf-sig-uart: #0ea5a0;
+  --rf-sig-can: #e8870c;
+  --rf-sig-motor: #d63d9b;
+  --rf-sig-pwm: #12a574;
+  --rf-shadow: 0 1px 2px rgb(14 27 61 / 0.06), 0 6px 20px -8px rgb(14 27 61 / 0.12);
+  --rf-shadow-lg: 0 2px 6px rgb(14 27 61 / 0.05), 0 28px 60px -20px rgb(14 27 61 / 0.25);
+  --rf-grid: rgb(14 27 61 / 0.06);
+  --rf-grid-dot: rgb(14 27 61 / 0.18);
+  --rf-minimap-mask: rgb(245 247 251 / 0.72);
+}
+
+.dark {
+  color-scheme: dark;
+  --rf-bg: #0a1124;
+  --rf-bg-soft: #0e172e;
+  --rf-panel: #121c37;
+  --rf-panel-2: #16213f;
+  --rf-raised: #1c2849;
+  --rf-border: #243257;
+  --rf-border-strong: #34457a;
+  --rf-fg: #eef3ff;
+  --rf-muted: #a4b1d0;
+  --rf-faint: #6b7aa0;
+  --rf-accent: #4d8bff;
+  --rf-accent-strong: #2a6cf0;
+  --rf-accent-2: #ffd35c;
+  --rf-accent-3: #ff7478;
+  --rf-green: #34d3a0;
+  --rf-purple: #9b83ff;
+  --rf-ok: #34d399;
+  --rf-warn: #fbbf24;
+  --rf-err: #ff6b70;
+  --rf-info: #6ea2ff;
+  --rf-sig-power: #ff6b70;
+  --rf-sig-ground: #93a0bf;
+  --rf-sig-logic: #6ea2ff;
+  --rf-sig-i2c: #a993ff;
+  --rf-sig-uart: #2dd4bf;
+  --rf-sig-can: #fbbf24;
+  --rf-sig-motor: #f472b6;
+  --rf-sig-pwm: #4ade80;
+  --rf-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 6px 20px -8px rgb(0 0 0 / 0.5);
+  --rf-shadow-lg: 0 2px 6px rgb(0 0 0 / 0.3), 0 28px 60px -20px rgb(0 0 0 / 0.65);
+  --rf-grid: rgb(238 243 255 / 0.05);
+  --rf-grid-dot: rgb(238 243 255 / 0.14);
+  --rf-minimap-mask: rgb(10 17 36 / 0.72);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes gradient-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--rf-accent) 45%, transparent); }
+  80%, 100% { box-shadow: 0 0 0 14px transparent; }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes dash {
+  to { stroke-dashoffset: -24; }
 }
 
 html,
@@ -40,6 +161,7 @@ body {
   font-family: var(--font-sans);
   font-size: 13px;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 * {
@@ -48,40 +170,119 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-accent) 35%, transparent);
+  background: color-mix(in srgb, var(--color-accent) 30%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 @layer components {
   .btn {
-    @apply inline-flex items-center gap-1.5 rounded-md border border-border bg-raised px-2.5 py-1 text-[12px] font-medium text-fg transition-colors hover:border-border-strong hover:bg-panel-2 disabled:cursor-not-allowed disabled:opacity-45;
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-panel px-3 py-1.5 text-[12.5px] font-medium text-fg shadow-[var(--rf-shadow)] transition-all duration-200 hover:-translate-y-px hover:border-border-strong hover:bg-panel-2 active:translate-y-0 disabled:pointer-events-none disabled:opacity-45;
   }
   .btn-primary {
-    @apply border-accent-strong bg-accent-strong text-white hover:bg-accent hover:border-accent;
+    @apply border-transparent bg-accent text-white;
   }
+  .btn-primary:hover {
+    background: var(--rf-accent-strong);
+    box-shadow: 0 12px 30px -12px color-mix(in srgb, var(--rf-accent) 80%, transparent);
+  }
+  /* Chunky "pressable" buttons */
+  .btn-ink {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3 text-[15px] font-bold text-white transition-all duration-150 hover:-translate-y-0.5 hover:brightness-105 active:translate-y-[3px] disabled:opacity-50;
+    box-shadow: 0 4px 0 var(--rf-accent-strong);
+  }
+  .btn-ink:active { box-shadow: 0 1px 0 var(--rf-accent-strong); }
+  .btn-line {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border-2 border-border-strong bg-panel px-6 py-3 text-[15px] font-bold text-fg transition-all duration-150 hover:-translate-y-0.5 hover:border-fg/40 active:translate-y-[3px];
+    box-shadow: 0 4px 0 var(--rf-border-strong);
+  }
+  .btn-line:active { box-shadow: 0 1px 0 var(--rf-border-strong); }
   .btn-ghost {
-    @apply border-transparent bg-transparent hover:bg-raised;
+    @apply border-transparent bg-transparent shadow-none hover:bg-raised;
   }
   .btn-danger {
-    @apply border-err/40 text-err hover:bg-err/10;
+    @apply border-err/30 text-err hover:bg-err/10;
+  }
+  .btn-lg {
+    @apply rounded-xl px-5 py-2.5 text-[14px];
   }
   .input {
-    @apply w-full rounded-md border border-border bg-bg px-2 py-1 text-[12px] text-fg outline-none placeholder:text-faint focus:border-accent;
+    @apply w-full rounded-lg border border-border bg-panel px-2.5 py-1.5 text-[12.5px] text-fg outline-none transition-colors placeholder:text-faint focus:border-accent focus:ring-4 focus:ring-accent/15;
   }
   .label {
-    @apply mb-1 block text-[11px] font-medium uppercase tracking-wide text-muted;
+    @apply mb-1 block text-[11px] font-semibold uppercase tracking-wide text-muted;
   }
   .panel-title {
-    @apply flex h-8 shrink-0 items-center justify-between border-b border-border px-3 text-[11px] font-semibold uppercase tracking-wider text-muted;
+    @apply flex h-9 shrink-0 items-center justify-between border-b border-border px-3 text-[11px] font-semibold uppercase tracking-wider text-muted;
   }
   .chip {
-    @apply inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[11px] font-medium;
+    @apply inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] font-medium;
   }
   .kbd {
     @apply rounded border border-border bg-raised px-1 font-mono text-[10px] text-muted;
   }
+  .card {
+    @apply rounded-2xl border border-border bg-panel shadow-[var(--rf-shadow)];
+  }
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[var(--rf-shadow-lg)];
+  }
+  .glass {
+    @apply border border-border/70 backdrop-blur-xl;
+    background: color-mix(in srgb, var(--rf-panel) 72%, transparent);
+  }
+  .gradient-text {
+    @apply text-accent;
+  }
+  /* Type */
+  .serif {
+    font-weight: 500;
+  }
+  .display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+  .kicker {
+    @apply text-[13px] font-bold text-accent;
+  }
+  .rule {
+    @apply h-px w-full bg-border;
+  }
+  .link-u {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .link-u:hover {
+    background-size: 100% 1px;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(var(--rf-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rf-grid) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full bg-accent/10 px-3 py-1 text-[13px] font-bold text-accent;
+  }
+  .card-pop {
+    @apply rounded-3xl border border-border bg-panel shadow-[var(--rf-shadow)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[var(--rf-shadow-lg)];
+  }
 }
 
-/* React Flow — match the IDE theme */
+/* React Flow — follows the active theme */
 .react-flow {
   --xy-background-color: var(--color-bg);
   --xy-edge-stroke: var(--color-faint);
@@ -89,7 +290,8 @@ body {
   --xy-handle-background-color: var(--color-panel-2);
   --xy-handle-border-color: var(--color-border-strong);
   --xy-minimap-background-color: var(--color-panel);
-  --xy-controls-button-background-color: var(--color-panel-2);
+  --xy-minimap-mask-background-color: color-mix(in srgb, var(--rf-bg) 70%, transparent);
+  --xy-controls-button-background-color: var(--color-panel);
   --xy-controls-button-background-color-hover: var(--color-raised);
   --xy-controls-button-color: var(--color-fg);
   --xy-controls-button-border-color: var(--color-border);
@@ -98,26 +300,77 @@ body {
 .react-flow__edge.selected .react-flow__edge-path {
   stroke-width: 3;
 }
-.react-flow__controls {
-  box-shadow: none;
+.react-flow__edge-path {
+  transition: stroke 0.2s ease;
+}
+.react-flow__controls,
+.react-flow__minimap {
+  overflow: hidden;
+  border-radius: 12px;
   border: 1px solid var(--color-border);
+  box-shadow: var(--rf-shadow);
+}
+.react-flow__handle {
+  transition: transform 0.15s ease;
+}
+.react-flow__handle:hover {
+  transform: translate(-50%, -50%) scale(1.5);
+}
+.react-flow__handle.react-flow__handle-bottom:hover {
+  transform: translate(-50%, 50%) scale(1.5);
+}
+.react-flow__handle.react-flow__handle-top:hover {
+  transform: translate(-50%, -50%) scale(1.5);
+}
+/* Animated current flow on selected wires */
+.react-flow__edge.selected .react-flow__edge-path,
+.rf-animated .react-flow__edge-path {
+  stroke-dasharray: 6 6;
+  animation: dash 1.2s linear infinite;
 }
 
-/* Rendered markdown (docs) */
-.prose-doc h1 { @apply mb-3 text-xl font-semibold; }
-.prose-doc h2 { @apply mb-2 mt-6 text-base font-semibold; }
-.prose-doc h3 { @apply mb-2 mt-4 text-sm font-semibold; }
+/* Rendered markdown (docs, tutorials) */
+.prose-doc h1 { @apply mb-3 text-3xl font-extrabold tracking-tight; }
+.prose-doc h2 { @apply mb-2 mt-8 text-xl font-bold tracking-tight; }
+.prose-doc h3 { @apply mb-2 mt-5 text-sm font-semibold; }
 .prose-doc p { @apply my-2 leading-relaxed text-fg/90; }
 .prose-doc ul { @apply my-2 list-disc pl-5; }
+.prose-doc ol { @apply my-2 list-decimal pl-5; }
+.prose-doc li { @apply my-1; }
 .prose-doc code { @apply rounded bg-raised px-1 font-mono text-[12px]; }
-.prose-doc pre { @apply my-3 overflow-auto rounded-md border border-border bg-panel p-3; }
+.prose-doc pre { @apply my-3 overflow-auto rounded-xl border border-border bg-panel-2 p-3; }
 .prose-doc pre code { @apply bg-transparent p-0; }
-.prose-doc table { @apply my-3 w-full border-collapse text-[12px]; }
-.prose-doc th { @apply border border-border bg-panel-2 px-2 py-1 text-left font-semibold; }
-.prose-doc td { @apply border border-border px-2 py-1 align-top; }
-.prose-doc blockquote { @apply my-3 border-l-2 border-accent pl-3 text-muted; }
+.prose-doc table { @apply my-3 w-full border-collapse overflow-hidden rounded-lg text-[12px]; }
+.prose-doc th { @apply border border-border bg-panel-2 px-2 py-1.5 text-left font-semibold; }
+.prose-doc td { @apply border border-border px-2 py-1.5 align-top; }
+.prose-doc blockquote { @apply my-3 rounded-r-lg border-l-4 border-accent bg-accent/5 py-2 pl-3 text-muted; }
 .prose-doc a { @apply text-accent underline; }
 
 /* Monaco: ROBOFORGE:USER regions */
-.rf-user-region { background: rgba(63, 185, 124, 0.07); }
+.rf-user-region { background: color-mix(in srgb, var(--rf-ok) 9%, transparent); }
 .rf-user-region-gutter { border-left: 3px solid var(--color-ok); margin-left: 3px; }
+
+/* Lenis smooth scrolling */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Photo credit */
+.credit {
+  @apply text-[11px] text-faint;
+}
+.credit a { @apply transition-colors hover:text-fg; }
+
+@keyframes kenburns {
+  from { transform: scale(1.02); }
+  to { transform: scale(1.14); }
+}
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(10px, -14px) rotate(8deg); }
+}
+.animate-kenburns { animation: kenburns 9s ease-out both; }
+.animate-drift { animation: drift 7s ease-in-out infinite; }
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

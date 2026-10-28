@@ -13,8 +13,11 @@
     "db:generate": "pnpm --filter @roboforge/db generate",
     "db:migrate": "pnpm --filter @roboforge/db migrate",
     "db:seed": "pnpm --filter @roboforge/db seed",
-    "sandbox:build": "infra/sandbox/build.sh",
-    "e2e": "node e2e/v1-flow.mjs"
+    "sandbox:build": "node infra/sandbox/build.mjs",
+    "e2e": "node e2e/v1-flow.mjs",
+    "db:up": "docker compose up -d db",
+    "db:local": "pnpm --filter @roboforge/local-db start",
+    "db:setup": "pnpm db:migrate && pnpm db:seed"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

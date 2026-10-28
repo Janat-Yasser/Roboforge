@@ -10,3 +10,4 @@ apps/web/public/monaco/
 *.tsbuildinfo
 next-env.d.ts
 e2e/screenshots/
+*.gitbundle

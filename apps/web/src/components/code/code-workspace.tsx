@@ -1,4 +1,5 @@
 "use client";
+import { useTheme } from "next-themes";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Editor, { loader, type OnMount } from "@monaco-editor/react";
 import clsx from "clsx";
@@ -96,6 +97,7 @@ function outsideRegions(text: string): string {
 }
 
 export function CodeWorkspace() {
+  const { resolvedTheme } = useTheme();
   const projectId = useProject((s) => s.project!.id);
   const revision = useProject((s) => s.revision);
   const generatedRevision = useProject((s) => s.project!.generatedRevision);
@@ -321,7 +323,7 @@ export function CodeWorkspace() {
             </div>
             <div className="min-h-0 flex-1">
               <Editor
-                theme="vs-dark"
+                theme={resolvedTheme === "light" ? "vs" : "vs-dark"}
                 path={tab.path}
                 language={language(tab.path)}
                 value={tab.content}

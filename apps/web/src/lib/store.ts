@@ -4,6 +4,7 @@ import { create } from "zustand";
 import { analyzeProject, type Analysis } from "@roboforge/codegen";
 import { applyCommands, CommandError, MapCatalog, type Command, type ComponentDefinition, type RobotSpec } from "@roboforge/spec";
 import { api, ApiClientError } from "./api";
+import { builtinCatalog, demoSpec } from "./demo";
 import { toast } from "./toast";
 
 export type Selection =
@@ -20,6 +21,8 @@ interface ProjectMeta {
 }
 
 interface ProjectStore {
+  /** "demo" = public, unsaved sandbox project that lives only in this browser tab. */
+  mode: "project" | "demo";
   project: ProjectMeta | null;
   spec: RobotSpec | null;
   /** Revision confirmed by the server for the last acknowledged batch. */
@@ -31,6 +34,7 @@ interface ProjectStore {
   loadError: string | null;
 
   load(projectId: string): Promise<void>;
+  loadDemo(): void;
   reload(): Promise<void>;
   addDefinitions(defs: ComponentDefinition[]): void;
   /** Applies commands optimistically and persists them. Returns false if rejected locally. */
@@ -41,7 +45,10 @@ interface ProjectStore {
 
 let queue: Promise<unknown> = Promise.resolve();
 
+export const DEMO_ID = "demo";
+
 export const useProject = create<ProjectStore>((set, get) => ({
+  mode: "project",
   project: null,
   spec: null,
   revision: 0,
@@ -51,8 +58,22 @@ export const useProject = create<ProjectStore>((set, get) => ({
   pending: 0,
   loadError: null,
 
+  loadDemo() {
+    const spec = demoSpec();
+    set((s) => ({
+      mode: "demo",
+      project: { id: DEMO_ID, name: spec.robot.displayName, revision: 1, generatedRevision: null },
+      spec,
+      revision: 1,
+      catalog: new MapCatalog(builtinCatalog().all()),
+      catalogVersion: s.catalogVersion + 1,
+      selection: null,
+      loadError: null,
+    }));
+  },
+
   async load(projectId) {
-    set({ project: null, spec: null, selection: null, loadError: null });
+    set({ mode: "project", project: null, spec: null, selection: null, loadError: null });
     try {
       const [{ project, spec }, lib] = await Promise.all([
         api<{ project: ProjectMeta; spec: RobotSpec }>(`/api/projects/${projectId}`),
@@ -69,7 +90,7 @@ export const useProject = create<ProjectStore>((set, get) => ({
 
   async reload() {
     const p = get().project;
-    if (!p) return;
+    if (!p || get().mode === "demo") return;
     const { project, spec } = await api<{ project: ProjectMeta; spec: RobotSpec }>(`/api/projects/${p.id}`);
     set({ project, spec, revision: project.revision });
   },
@@ -95,6 +116,10 @@ export const useProject = create<ProjectStore>((set, get) => ({
     } catch (e) {
       toast.error(e instanceof CommandError ? e.message : (e as Error).message);
       return false;
+    }
+    if (get().mode === "demo") {
+      set((s) => ({ spec: next, revision: s.revision + 1, project: s.project ? { ...s.project, revision: s.revision + 1, name: next.robot.displayName } : s.project }));
+      return true;
     }
     set((s) => ({ spec: next, pending: s.pending + 1 }));
     queue = queue.then(async () => {
@@ -149,4 +174,15 @@ export function useAnalysis(): Analysis | null {
 /** Waits until all queued command batches have been persisted. */
 export function flushCommands(): Promise<unknown> {
   return queue;
+}
+
+/** URL prefix for workspace pages: /projects/<id> or /demo. */
+export function useBasePath(): string {
+  const mode = useProject((s) => s.mode);
+  const id = useProject((s) => s.project?.id);
+  return mode === "demo" ? "/demo" : `/projects/${id ?? ""}`;
+}
+
+export function useIsDemo(): boolean {
+  return useProject((s) => s.mode === "demo");
 }

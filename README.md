@@ -39,19 +39,38 @@ Every spec change is a numbered revision (history + restore). The AI assistant (
 
 ## Quick start
 
-Requirements: Node 22, pnpm 10, PostgreSQL 16, Docker (for sandboxed builds).
+Requirements: Node 22+ and pnpm 10. Optional: Docker (sandboxed builds, or Postgres in a container)
+or a native PostgreSQL 16.
+
+**1. A database** — pick one:
+
+| Option | Command | Notes |
+|---|---|---|
+| Embedded (no install) | `pnpm db:local` — leave it running | PGlite: real Postgres compiled to WebAssembly, data in `.data/pglite`. Single developer. |
+| Docker | `pnpm db:up` | Postgres 16 container |
+| Native PostgreSQL | create role/db `roboforge` / `roboforge` | e.g. `psql -U postgres -c "CREATE USER roboforge WITH PASSWORD 'roboforge' CREATEDB;"` then `psql -U postgres -c "CREATE DATABASE roboforge OWNER roboforge;"` |
+
+All options listen on `localhost:5432`, which is the default `DATABASE_URL`
+(`postgresql://roboforge:roboforge@localhost:5432/roboforge`).
+
+**2. Run** (in another terminal):
 
 ```bash
 pnpm install
-cp .env.example .env        # adjust DATABASE_URL if needed
-export $(grep -v '^#' .env | xargs)
-pnpm db:migrate && pnpm db:seed    # schema + component library
-pnpm sandbox:build                 # sandbox image for builds (WITH_PIO=1 also builds the cross-compiler image)
-pnpm dev                           # http://localhost:3000
-pnpm worker                        # in another terminal: build worker
+pnpm db:setup         # migrations + component library (run once, and after pulling new migrations)
+pnpm dev              # http://localhost:3000
+pnpm worker           # optional, third terminal: build worker
+pnpm sandbox:build    # optional, needs Docker: sandbox image so builds run the generated tests
 ```
 
-Or `docker compose up` (Postgres + web + worker; see notes in `docker-compose.yml`).
+Without Docker the worker still validates, generates and packages builds; test/compile steps are
+reported as *skipped* (they never run on the host).
+
+**Windows / PowerShell:** Windows PowerShell 5 does not accept `&&` — run commands one per line
+(all `pnpm` scripts are cross-platform). Set variables with `$env:DATABASE_URL = "..."`,
+`$env:ANTHROPIC_API_KEY = "..."`.
+
+Or run everything with `docker compose up` (Postgres + web + worker; see notes in `docker-compose.yml`).
 
 ## Tests
 

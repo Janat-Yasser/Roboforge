@@ -17,6 +17,7 @@ import {
   type NodeChange,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
+import { useTheme } from "next-themes";
 import { newId, toIdentifier, type ComponentDefinition, type Severity } from "@roboforge/spec";
 import { useAnalysis, useProject } from "@/lib/store";
 import { ComponentNode, type ComponentFlowNode } from "./component-node";
@@ -61,6 +62,7 @@ export function findFreeSpot(existing: { x: number; y: number; w: number; h: num
 }
 
 function CanvasInner() {
+  const { resolvedTheme } = useTheme();
   const spec = useProject((s) => s.spec)!;
   const catalog = useProject((s) => s.catalog);
   const selection = useProject((s) => s.selection);
@@ -190,10 +192,11 @@ function CanvasInner() {
       fitViewOptions={{ padding: 0.15 }}
       minZoom={0.15}
       proOptions={{ hideAttribution: true }}
+      colorMode={resolvedTheme === "light" ? "light" : "dark"}
     >
-      <Background variant={BackgroundVariant.Dots} gap={18} size={1} color="#223044" />
+      <Background variant={BackgroundVariant.Dots} gap={18} size={1.4} color="var(--rf-grid-dot)" />
       <Controls />
-      <MiniMap pannable zoomable nodeColor={(n) => CATEGORY_COLOR[(n.data as { def: ComponentDefinition }).def.category]} maskColor="rgba(13,17,23,0.7)" />
+      <MiniMap pannable zoomable nodeColor={(n) => CATEGORY_COLOR[(n.data as { def: ComponentDefinition }).def.category]} maskColor="var(--rf-minimap-mask)" bgColor="var(--rf-panel)" />
     </ReactFlow>
   );
 }
