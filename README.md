@@ -1,5 +1,7 @@
 # RoboForge
 
+[![CI](https://github.com/Janat-Yasser/Roboforge/actions/workflows/ci.yml/badge.svg)](https://github.com/Janat-Yasser/Roboforge/actions/workflows/ci.yml)
+
 An engineering IDE for robots. Describe a robot once — hardware, wiring, behavior — and RoboForge
 validates it and generates a real, editable, Git-ready codebase: PlatformIO firmware (ESP32 / Arduino /
 STM32) with a HAL, drivers and native unit tests, ROS 2 packages (URDF/Xacro, launch, params, behavior
@@ -75,7 +77,7 @@ Or run everything with `docker compose up` (Postgres + web + worker; see notes i
 ## Tests
 
 ```bash
-pnpm test        # 35 unit/integration tests: commands, IR, validation rules, code generation,
+pnpm test        # 38 unit/integration tests: commands, IR, validation rules, code generation,
                  # merge/ownership, assistant tool loop, build pipeline.
                  # When g++ (and Unity via UNITY_SRC) / pytest are present, generated firmware is
                  # compiled with -Wall -Wextra -Werror and its tests run; generated Python tests run too.
@@ -98,6 +100,13 @@ pnpm e2e         # full UI flow against a running server (Playwright)
 | `apps/worker` | Build worker + Docker sandbox |
 | `infra/sandbox` | Sandbox images |
 | `e2e` | End-to-end UI flow |
+
+## Security notes
+
+- Passwords: scrypt. Sessions: random tokens, stored hashed, httpOnly cookies.
+- Every project, file and build route is scoped to the signed-in user.
+- Rate limits (in-memory, per instance): sign-in 10 / 15 min per IP and 5 per email, sign-up 5 / hour per IP, AI assistant 30 / hour per user (`ASSISTANT_HOURLY_LIMIT`).
+- Builds run in a container with no network, a read-only root, all capabilities dropped, a non-root user, and CPU, memory, PID and time limits.
 
 ## Known limits (V1)
 

@@ -16,5 +16,5 @@ export default defineConfig({
       "@roboforge/db": pkg("db"),
     },
   },
-  test: { include: ["packages/*/test/**/*.test.ts", "apps/worker/test/**/*.test.ts"], environment: "node" },
+  test: { include: ["packages/*/test/**/*.test.ts", "apps/worker/test/**/*.test.ts", "apps/web/test/**/*.test.ts"], environment: "node" },
 });

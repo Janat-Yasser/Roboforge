@@ -53,6 +53,15 @@ export function errorResponse(e: unknown): Response {
   return NextResponse.json({ error: { code: "INTERNAL", message: "Internal server error." } }, { status: 500 });
 }
 
+/** Throws a 429 when a rate limit is exceeded. */
+export function enforce(result: { ok: boolean; retryAfterSec: number }, what = "requests"): void {
+  if (!result.ok) {
+    throw new ApiError(429, "RATE_LIMITED", `Too many ${what}. Try again in ${Math.max(1, Math.ceil(result.retryAfterSec / 60))} min.`, {
+      retryAfterSec: result.retryAfterSec,
+    });
+  }
+}
+
 export async function body<S extends ZodTypeAny>(req: Request, schema: S): Promise<z.infer<S>> {
   let raw: unknown;
   try {
