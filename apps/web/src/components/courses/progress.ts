@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 "use client";
 import { useCallback, useEffect, useState } from "react";
 

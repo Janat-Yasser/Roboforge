@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { analyzeProject } from "@roboforge/codegen";
 import { summarizeIR } from "@roboforge/ir";
 import { RobotSpec } from "@roboforge/spec";

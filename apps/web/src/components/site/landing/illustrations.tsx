@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { ARENAS, buildRobotIR, RobotSim } from "@roboforge/ir";

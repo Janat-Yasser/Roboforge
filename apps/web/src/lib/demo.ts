@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { builtinCatalog } from "@roboforge/catalog";
 import { createFromTemplate } from "@roboforge/ir";
 import type { RobotSpec } from "@roboforge/spec";

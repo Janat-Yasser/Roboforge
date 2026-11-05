@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { ComponentDefinitionInput } from "./types";
 
 const lipo = (cells: number, capacityMah: number, cRating: number): ComponentDefinitionInput => ({

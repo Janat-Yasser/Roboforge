@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { and, eq, ilike } from "drizzle-orm";
 import { getDb, projectFiles } from "@roboforge/db";
 import { requireUser } from "@/server/auth";

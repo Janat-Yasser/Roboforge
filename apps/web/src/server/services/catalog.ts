@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import "server-only";
 import { MapCatalog, type ComponentDefinition } from "@roboforge/spec";
 import { componentVersions, getDb } from "@roboforge/db";

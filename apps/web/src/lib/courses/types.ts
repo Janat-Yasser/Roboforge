@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 /**
  * RoboForge Academy course model. Text supports **bold**, `code` and *italic* (rendered by <Inline/>).
  */

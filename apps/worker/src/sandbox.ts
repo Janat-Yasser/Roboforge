@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { spawn, spawnSync } from "node:child_process";
 import { randomUUID } from "node:crypto";
 

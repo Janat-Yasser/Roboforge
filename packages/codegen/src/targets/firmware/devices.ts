@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { ControllerPlatform, Diagnostic } from "@roboforge/spec";
 import type { ControllerPinRef, RobotIR, ResolvedComponent } from "@roboforge/ir";
 import { sourceVoltage } from "@roboforge/ir";

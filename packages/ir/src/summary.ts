@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { RobotIR } from "./types";
 
 /** JSON-serializable view of the IR for APIs, the UI and generated hardware docs. */

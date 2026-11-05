@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 "use client";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";

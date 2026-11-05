@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { ComponentDefinitionInput } from "./types";
 
 const I2C_7BIT_RANGE = Array.from({ length: 0x78 - 0x08 }, (_, i) => i + 0x08);

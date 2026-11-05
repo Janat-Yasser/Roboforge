@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { RobotIR } from "@roboforge/ir";
 import { commonTarget } from "./targets/common";
 import { firmwareTarget } from "./targets/firmware";

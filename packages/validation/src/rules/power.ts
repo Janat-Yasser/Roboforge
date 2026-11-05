@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { rule, type RuleFinding } from "../engine";
 import { fmtMa, fmtV, isConnected, nameOf, netOf, netVoltage } from "../util";
 

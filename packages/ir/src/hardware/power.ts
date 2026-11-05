@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { PinDef } from "@roboforge/spec";
 import type { MotorBinding, Net, PowerNet, PowerSink, PowerSource, ResolvedComponent } from "../types";
 

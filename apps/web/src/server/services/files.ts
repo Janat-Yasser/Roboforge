@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import "server-only";
 import { and, eq, inArray } from "drizzle-orm";
 import { generateProject, mergeGeneration, type FileChange, type Ownership } from "@roboforge/codegen";

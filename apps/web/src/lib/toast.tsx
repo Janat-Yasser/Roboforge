@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 "use client";
 import { create } from "zustand";
 import { CheckCircle2, Info, XCircle } from "lucide-react";

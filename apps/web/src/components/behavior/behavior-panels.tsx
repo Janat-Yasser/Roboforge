@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 "use client";
 import { Plus, Trash2, X } from "lucide-react";
 import { CompareOp, NODE_KINDS, type BehaviorNode, type BehaviorNodeKind, type ComponentDefinition, type Operand } from "@roboforge/spec";

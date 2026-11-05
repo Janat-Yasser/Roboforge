@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { ComponentCategory, PinDef, PinType } from "@roboforge/spec";
 
 export type SignalClass = "power" | "ground" | "i2c" | "uart" | "can" | "motor" | "pwm" | "spi" | "logic" | "other";

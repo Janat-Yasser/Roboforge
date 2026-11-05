@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { ComponentDefinition } from "@roboforge/spec";
 import { CATEGORY_COLOR, SIGNAL_COLOR, signalClass } from "../hardware/pin-style";
 

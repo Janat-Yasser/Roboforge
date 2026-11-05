@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { IdeShell } from "@/components/ide/shell";
 
 export const metadata = { title: "Demo robot" };

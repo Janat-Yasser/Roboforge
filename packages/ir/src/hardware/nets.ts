@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { pinKey, type PinType, type RobotSpec } from "@roboforge/spec";
 import type { Net, NetKind, NetPin, ResolvedComponent } from "../types";
 

@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 "use client";
 import { motion } from "motion/react";
 import { Boxes } from "lucide-react";

@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { z } from "zod";
 import { requireUser } from "@/server/auth";
 import { body, route } from "@/server/http";

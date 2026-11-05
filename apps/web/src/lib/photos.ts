@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 /**
  * Curated Unsplash photography (free to use under the Unsplash License; credit is given anyway).
  * Images are served straight from the Unsplash CDN with on-the-fly resizing.

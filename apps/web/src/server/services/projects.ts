@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import "server-only";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { applyCommands, RobotSpec, toIdentifier } from "@roboforge/spec";

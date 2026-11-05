@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { specToYaml } from "@roboforge/spec";
 import { summarizeIR, type RobotIR } from "@roboforge/ir";
 import type { GeneratedFile, GenerationContext, TargetGenerator } from "../../types";

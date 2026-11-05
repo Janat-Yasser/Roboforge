@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { notFound } from "next/navigation";
 import { ModuleView } from "@/components/courses/module-view";
 import { MODULES, moduleBySlug } from "@/lib/courses";

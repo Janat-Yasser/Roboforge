@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import "server-only";
 import { NextResponse } from "next/server";
 import { ZodError, type z, type ZodTypeAny } from "zod";

@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import "server-only";
 import { and, asc, desc, eq, gt } from "drizzle-orm";
 import { buildLogs, builds, getDb, LocalObjectStore, type BuildStep } from "@roboforge/db";

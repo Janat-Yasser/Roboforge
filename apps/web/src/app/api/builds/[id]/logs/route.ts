@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { requireUser } from "@/server/auth";
 import { errorResponse } from "@/server/http";
 import { getBuild, logsAfter } from "@/server/services/builds";

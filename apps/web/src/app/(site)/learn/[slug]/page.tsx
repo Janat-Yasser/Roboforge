@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { notFound } from "next/navigation";
 import { TutorialView } from "@/components/learn/tutorial-view";
 import { TUTORIALS, tutorialBySlug } from "@/lib/tutorials";

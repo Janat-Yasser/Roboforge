@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 /**
  * Build worker. Claims queued builds from Postgres (FOR UPDATE SKIP LOCKED), runs the pipeline and
  * streams logs/steps back. Run several instances for parallelism.

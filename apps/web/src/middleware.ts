@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { NextResponse, type NextRequest } from "next/server";
 
 /** Cheap gate for pages: redirect to /login without a session cookie. APIs authenticate themselves. */

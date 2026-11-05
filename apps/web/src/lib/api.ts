@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 /** Typed fetch helper for the RoboForge API. Throws ApiClientError with the server's error code. */
 export class ApiClientError extends Error {
   constructor(

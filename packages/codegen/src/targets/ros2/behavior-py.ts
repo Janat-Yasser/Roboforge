@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { PC_END, type BehaviorIR, type CompiledNode, type OperandIR, type RobotIR } from "@roboforge/ir";
 import { CodeWriter, GENERATED_BANNER_PY, pyFloat } from "../../util/text";
 

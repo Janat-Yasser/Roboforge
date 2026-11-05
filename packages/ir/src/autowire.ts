@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { newId, type Catalog, type Command, type ControllerFunction, type PinDef, type RobotSpec } from "@roboforge/spec";
 import { resolveHardware } from "./hardware/resolve";
 import { REQUIRED_CONTROLLER_FN, pinSupports } from "./hardware/pins";

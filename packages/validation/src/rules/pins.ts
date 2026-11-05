@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { SHAREABLE_FNS } from "@roboforge/ir";
 import { rule, type RuleFinding } from "../engine";
 import { nameOf } from "../util";

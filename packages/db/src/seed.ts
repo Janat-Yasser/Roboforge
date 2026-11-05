@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 /**
  * Seeds the global component library from the built-in catalog. Idempotent; published
  * (componentId, version) pairs are immutable and never overwritten.

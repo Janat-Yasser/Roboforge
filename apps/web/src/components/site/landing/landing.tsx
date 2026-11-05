@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 "use client";
 import { HeroCarousel } from "./hero-carousel";
 import { Audiences, FeatureGrid, FinalCta, HowItWorks, LearnTeaser, Live3D, ProjectCarousel, WorksWith } from "./sections";

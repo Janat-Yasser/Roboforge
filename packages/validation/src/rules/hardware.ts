@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { pinClass } from "@roboforge/ir";
 import { rule, type RuleFinding } from "../engine";
 import { fmtMa, fmtV, nameOf, netVoltage } from "../util";

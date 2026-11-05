@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 /**
  * Zero-install PostgreSQL for local development: PGlite (Postgres compiled to WebAssembly)
  * served over the Postgres wire protocol, persisted in .data/pglite. Use it when neither Docker

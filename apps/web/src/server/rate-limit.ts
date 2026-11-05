@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 /**
  * Fixed-window, in-memory rate limiter for API routes.
  *

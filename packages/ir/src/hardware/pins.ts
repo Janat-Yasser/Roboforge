@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { ControllerFunction, PinDef, PinType } from "@roboforge/spec";
 import type { ControllerPinRef, Net, PinAssignment, ResolvedComponent } from "../types";
 

@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { RobotIR } from "../types";
 import { BehaviorRuntime, type RuntimeIO } from "./runtime";
 

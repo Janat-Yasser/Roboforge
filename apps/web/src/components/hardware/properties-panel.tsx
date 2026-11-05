@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 "use client";
 import { useEffect, useState } from "react";
 import { Cable, ExternalLink, Trash2, Wand2, X } from "lucide-react";

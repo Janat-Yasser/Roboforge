@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { Catalog, RobotSpec } from "@roboforge/spec";
 import { compileBehavior } from "./behavior/compile";
 import { resolveHardware } from "./hardware/resolve";

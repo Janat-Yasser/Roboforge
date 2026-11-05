@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 "use client";
 import { useEffect, useState } from "react";
 import { Check, Loader2, Sparkles, Wrench, X } from "lucide-react";

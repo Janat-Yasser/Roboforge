@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import clsx from "clsx";
 
 /** RoboForge mascot mark: a friendly robot head on a blue tile with a yellow antenna. */

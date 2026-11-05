@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { Catalog, ComponentInstance, RobotSpec } from "@roboforge/spec";
 import type { HardwareIR, ResolvedComponent } from "../types";
 import { computeMotorBindings, computeSensorBindings, computeServoBindings } from "./bindings";

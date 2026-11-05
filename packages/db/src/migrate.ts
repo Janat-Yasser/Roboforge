@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { migrate } from "drizzle-orm/node-postgres/migrator";
 import { fileURLToPath } from "node:url";
 import { getDb, getPool } from "./index";

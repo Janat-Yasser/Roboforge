@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { PC_END, type BehaviorIR, type CompiledNode, type OperandIR } from "@roboforge/ir";
 import { CodeWriter, GENERATED_BANNER_CPP, cppFloat, cppString } from "../../util/text";
 

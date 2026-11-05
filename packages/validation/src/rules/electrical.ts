@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { ResolvedComponent } from "@roboforge/ir";
 import type { PinDef } from "@roboforge/spec";
 import { rule, type RuleFinding } from "../engine";

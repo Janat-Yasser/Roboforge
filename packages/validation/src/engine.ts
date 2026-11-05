@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { Diagnostic, DiagnosticCategory, Severity } from "@roboforge/spec";
 import type { RobotIR } from "@roboforge/ir";
 

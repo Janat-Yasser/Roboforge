@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 /**
  * Uniform diagnostic shape shared by the validation engine, the behavior compiler and code
  * generators, so the UI can render all problems in one panel and highlight what they reference.

@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { BehaviorNode, BehaviorNodeKind, Command, ComponentDefinition, Operand, RobotSpec } from "@roboforge/spec";
 import { newId } from "@roboforge/spec";
 

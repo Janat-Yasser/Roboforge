@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { GeneratedFile, Ownership } from "./types";
 import { RegionParseError, transplantRegions } from "./util/regions";
 

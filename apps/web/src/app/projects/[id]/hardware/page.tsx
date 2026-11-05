@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 "use client";
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";

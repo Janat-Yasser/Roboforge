@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { CODING } from "./coding";
 import { ELECTRONICS } from "./electronics";
 import { ROBOTICS } from "./robotics";

@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { LockedSection } from "@/components/ide/locked-section";
 
 export default function DemoBuild() {

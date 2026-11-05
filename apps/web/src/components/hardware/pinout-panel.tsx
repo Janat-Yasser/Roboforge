@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 "use client";
 import clsx from "clsx";
 import { summarizeIR } from "@roboforge/ir";

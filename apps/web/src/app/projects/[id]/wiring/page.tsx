@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 "use client";
 import { HardwareCanvas } from "@/components/hardware/hardware-canvas";
 import { PinoutPanel } from "@/components/hardware/pinout-panel";

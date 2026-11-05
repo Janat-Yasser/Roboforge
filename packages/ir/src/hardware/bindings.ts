@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { CanNetwork, ControllerPinRef, I2cBus, MotorBinding, Net, ResolvedComponent, SensorBinding, ServoBinding, UartLink } from "../types";
 import { canNodeIdOf } from "./buses";
 import { controllerPinFor } from "./pins";

@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 "use client";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";

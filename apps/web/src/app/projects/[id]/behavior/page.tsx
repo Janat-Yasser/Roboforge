@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 "use client";
 import { BehaviorCanvas } from "@/components/behavior/behavior-canvas";
 import { BehaviorPalette, BehaviorProperties } from "@/components/behavior/behavior-panels";

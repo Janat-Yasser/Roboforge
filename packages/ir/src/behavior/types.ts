@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { CompareOp } from "@roboforge/spec";
 
 /** Program counter value meaning "fiber finished". */

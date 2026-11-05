@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { requireUser } from "@/server/auth";
 import { ApiError, route } from "@/server/http";
 import { restoreRevision } from "@/server/services/projects";

@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 /**
  * Protected regions: blocks in generated files whose content belongs to the engineer.
  *

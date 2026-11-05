@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { PartsGallery } from "@/components/parts/parts-gallery";
 import { PartsHero } from "@/components/parts/parts-hero";
 import { publicParts } from "@/server/services/public-catalog";

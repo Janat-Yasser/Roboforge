@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 /** Tutorial content for the public /learn pages. Plain data so it can be rendered anywhere. */
 
 import type { PhotoKey } from "./photos";

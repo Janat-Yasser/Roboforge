@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { rule, type RuleFinding } from "../engine";
 
 /** Identifiers that would collide with C++/Python keywords or generated names. */

@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { ComponentDefinition, MapCatalog } from "@roboforge/spec";
 import { actuators } from "./actuators";
 import { controllers } from "./controllers";

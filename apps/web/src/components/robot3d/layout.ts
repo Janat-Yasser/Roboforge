@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { Catalog, ComponentDefinition, RobotSpec } from "@roboforge/spec";
 
 /**

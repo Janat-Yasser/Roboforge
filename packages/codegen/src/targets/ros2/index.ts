@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { RobotIR } from "@roboforge/ir";
 import type { GeneratedFile, GenerationContext, TargetGenerator } from "../../types";
 import { region } from "../../util/regions";

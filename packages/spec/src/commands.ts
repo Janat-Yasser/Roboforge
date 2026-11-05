@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { z } from "zod";
 import { BehaviorEdge, BehaviorNode, BehaviorVariable, Identifier, StateName, outputPorts } from "./behavior";
 import type { Catalog } from "./component";

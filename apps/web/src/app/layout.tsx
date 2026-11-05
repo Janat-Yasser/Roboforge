@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "@/lib/toast";

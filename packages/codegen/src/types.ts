@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { Diagnostic, RobotSpec } from "@roboforge/spec";
 import type { RobotIR } from "@roboforge/ir";
 import type { ValidationReport } from "@roboforge/validation";

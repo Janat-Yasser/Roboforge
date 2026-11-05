@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { attachment } from "@/server/rate-limit";
 import { requireUser } from "@/server/auth";
 import { route } from "@/server/http";

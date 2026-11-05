@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import JSZip from "jszip";
 
 /** Fixed timestamp so identical projects produce byte-identical archives. */

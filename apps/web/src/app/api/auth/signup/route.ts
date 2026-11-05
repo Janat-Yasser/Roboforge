@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import { z } from "zod";
 import { createSession, signUp } from "@/server/auth";
 import { body, enforce, route } from "@/server/http";

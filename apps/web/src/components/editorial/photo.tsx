@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 "use client";
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";

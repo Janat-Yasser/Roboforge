@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import "server-only";
 import { AnthropicClient, runAssistant, type Message } from "@roboforge/assistant";
 import { RobotSpec } from "@roboforge/spec";

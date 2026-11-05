@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 /**
  * RoboForge database schema (Drizzle ORM, PostgreSQL).
  * The Robot Specification is stored as a versioned JSON document — see ARCHITECTURE.md, ADR-5.

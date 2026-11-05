@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import type { CanNetwork, ControllerPinRef, I2cBus, Net, PinAssignment, ResolvedComponent, UartLink } from "../types";
 import { controllerPinFor } from "./pins";
 

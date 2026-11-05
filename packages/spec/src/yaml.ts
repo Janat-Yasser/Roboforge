@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 import YAML from "yaml";
 import { RobotSpec } from "./schema";
 

@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Janat Yasser. All rights reserved.
 "use client";
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
