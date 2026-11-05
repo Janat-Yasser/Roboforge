@@ -136,3 +136,7 @@ pnpm e2e         # full UI flow against a running server (Playwright)
 - The simulator is 2D and kinematic: no wheel slip, motor response is a first-order lag, IMU pitch and
   roll read 0, LiDAR is reduced to its two channels, and user functions always succeed.
 - Device deployment (flashing from the browser) is designed-for (HAL seam) but not implemented.
+
+## License
+
+© 2026 Janat Yasser. All rights reserved. See [LICENSE](LICENSE).
