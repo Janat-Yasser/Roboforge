@@ -69,4 +69,62 @@ const sn65hvd230: ComponentDefinitionInput = {
   geometry: { box: [0.02, 0.015, 0.003], massKg: 0.002 },
 };
 
-export const power = [lipo(2, 2200, 20), lipo(3, 2200, 20), lipo(6, 5000, 20), lm2596, sn65hvd230];
+const liion2s: ComponentDefinitionInput = {
+  id: "liion-2s-18650-2600",
+  version: "1.0.0",
+  name: "Li-ion 2S 18650 Pack 2600 mAh",
+  manufacturer: "Generic",
+  category: "power",
+  description: "Two 18650 cells in series with a protection board: 7.2 V nominal, 8.4 V full, 2600 mAh, 5 A max. Heavier but safer to store than LiPo.",
+  tags: ["battery", "li-ion", "18650", "2s"],
+  interfaces: ["power"],
+  pins: [
+    { name: "BAT+", type: "power_out", outputVoltage: 7.2, maxCurrentMa: 5000 },
+    { name: "BAT-", type: "ground" },
+  ],
+  power: { kind: "battery", chemistry: "Li-ion", nominalV: 7.2, fullV: 8.4, capacityMah: 2600, maxDischargeMa: 5000 },
+  geometry: { box: [0.07, 0.04, 0.02], massKg: 0.1 },
+};
+
+const mp1584: ComponentDefinitionInput = {
+  id: "mp1584-buck",
+  version: "1.0.0",
+  name: "MP1584EN Mini Buck Converter",
+  manufacturer: "Monolithic Power Systems (module)",
+  category: "regulator",
+  description: "Tiny adjustable step-down module, 4.5–28 V in, 0.8–20 V out, 3 A peak (about 2 A continuous without extra cooling). ~1 V dropout.",
+  tags: ["buck", "dc-dc", "regulator", "step-down", "mini"],
+  datasheetUrl: "https://www.monolithicpower.com/en/documentview/productdocument/index/version/2/document_type/Datasheet/lang/en/sku/MP1584EN",
+  interfaces: ["power"],
+  electrical: { typicalCurrentMa: 1 },
+  pins: [
+    { name: "VIN", type: "power_in", voltage: { min: 4.5, max: 28 } },
+    { name: "GND_IN", label: "GND in", type: "ground" },
+    { name: "VOUT", type: "power_out", outputVoltageConfigKey: "outputVoltage", maxCurrentMa: 2000 },
+    { name: "GND_OUT", label: "GND out", type: "ground" },
+  ],
+  power: { kind: "regulator", topology: "buck", efficiency: 0.9, dropoutV: 1, inputPin: "VIN", outputPin: "VOUT" },
+  config: [{ key: "outputVoltage", label: "Output voltage", type: "number", default: 5, min: 0.8, max: 20, unit: "V" }],
+  geometry: { box: [0.022, 0.017, 0.004], massKg: 0.003 },
+};
+
+const ams1117: ComponentDefinitionInput = {
+  id: "ams1117-3v3",
+  version: "1.0.0",
+  name: "AMS1117-3.3 LDO Module",
+  manufacturer: "Advanced Monolithic Systems (module)",
+  category: "regulator",
+  description: "Fixed 3.3 V linear regulator, 4.5–12 V in, 800 mA. Wastes the voltage difference as heat, so keep the current low or feed it 5 V.",
+  tags: ["ldo", "linear", "regulator", "3.3v"],
+  interfaces: ["power"],
+  electrical: { typicalCurrentMa: 5 },
+  pins: [
+    { name: "VIN", type: "power_in", voltage: { min: 4.5, max: 12 } },
+    { name: "GND", type: "ground" },
+    { name: "VOUT", type: "power_out", outputVoltage: 3.3, maxCurrentMa: 800 },
+  ],
+  power: { kind: "regulator", topology: "linear", efficiency: 0.66, dropoutV: 1.1, inputPin: "VIN", outputPin: "VOUT" },
+  geometry: { box: [0.025, 0.011, 0.006], massKg: 0.002 },
+};
+
+export const power = [lipo(2, 1000, 25), lipo(2, 2200, 20), lipo(3, 2200, 20), lipo(3, 5000, 30), lipo(6, 5000, 20), liion2s, lm2596, mp1584, ams1117, sn65hvd230];

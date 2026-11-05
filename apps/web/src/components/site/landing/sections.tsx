@@ -16,6 +16,7 @@ import {
   GraduationCap,
   Hammer,
   MousePointer2,
+  Play,
   Move3d,
   Rotate3d,
   ShieldCheck,
@@ -30,7 +31,7 @@ import { builtinCatalog, demoSpec } from "@/lib/demo";
 import { PHOTOS, unsplash, type PhotoKey } from "@/lib/photos";
 import { TUTORIALS } from "@/lib/tutorials";
 import { MODULES, totalLessons } from "@/lib/courses";
-import { BehaviorIllustration, CodeIllustration, PartsIllustration, WiringIllustration } from "./illustrations";
+import { BehaviorIllustration, CodeIllustration, PartsIllustration, SimIllustration, WiringIllustration } from "./illustrations";
 
 function Img({ photo, w, h, className }: { photo: PhotoKey; w: number; h?: number; className?: string }) {
   const p = PHOTOS[photo];
@@ -80,6 +81,7 @@ const STEPS = [
   { icon: Boxes, color: "#1e6bff", title: "Pick your parts", text: "Choose controllers, motors, drivers, sensors and batteries from a library of real parts with real datasheet numbers.", ui: <PartsIllustration /> },
   { icon: Cable, color: "#e8a400", title: "Wire them up", text: "Drag from pin to pin — or let Auto-wire pick safe pins. 45 checks run on every change and explain every fix.", ui: <WiringIllustration /> },
   { icon: Workflow, color: "#ff5a5f", title: "Program the behavior", text: "Snap together events, sensor reads, conditions, motor commands and waits. No code needed to start.", ui: <BehaviorIllustration /> },
+  { icon: Play, color: "#7c5cff", title: "Watch it drive", text: "Run the behavior in a 2D simulator before you build anything. Move the boxes, press the e-stop, see what the sensors see.", ui: <SimIllustration /> },
   { icon: Code2, color: "#14b886", title: "Get real code", text: "Generate firmware and ROS 2 packages, run the tests in a sandbox and export a Git-ready project.", ui: <CodeIllustration /> },
 ];
 const STEP_MS = 7000;
@@ -111,7 +113,7 @@ export function HowItWorks() {
   const s = STEPS[active]!;
   return (
     <section id="how" className="mx-auto max-w-7xl scroll-mt-24 px-5 py-24">
-      <SectionHead center tag="How it works" title="From idea to a moving robot in four steps" text="Everything you do edits one Robot Specification, so hardware, wiring, behavior and code always stay in sync." />
+      <SectionHead center tag="How it works" title="From idea to a moving robot in five steps" text="Everything you do edits one Robot Specification, so hardware, wiring, behavior and code always stay in sync." />
       <div ref={ref} className="mt-14 grid items-center gap-10 lg:grid-cols-[400px_1fr]" onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}>
         <div className="space-y-3" role="tablist">
           {STEPS.map((st, i) => {

@@ -262,8 +262,13 @@ target diagnostics use the same `Diagnostic` shape so the problems panel is unif
 
 In V1: auth, projects, spec + revisions, component library, hardware canvas, wiring, pin assignment,
 validation, behavior editor, code generation (ESP32/Arduino/STM32 + ROS 2), Monaco editor, export,
-basic sandboxed build, AI assistant (proposal mode, requires `ANTHROPIC_API_KEY`).
+basic sandboxed build, AI assistant (proposal mode, requires `ANTHROPIC_API_KEY`), and a 2D simulator.
 
-Later: simulation (the HAL interfaces are the seam — a `SimMotor`/`SimDistanceSensor` backend and a
-Gazebo bridge plug in behind them), deployment/OTA to devices, Linux (non-ROS) runtime target,
+The simulator (`packages/ir/src/sim`) is a TypeScript port of the generated firmware runtime
+(`BehaviorRuntime`: same fibers, step budget, waits, Sequence/Parallel, states and e-stop latch) driven
+by a kinematic differential-drive world (`RobotSim`): distance sensors ray-cast from their mount pose,
+LiDAR, IMU yaw from the simulated heading, bumpers on contact, and an e-stop button. It runs in the
+browser on the IR, so it needs no server.
+
+Later: physics simulation (a Gazebo bridge behind the HAL interfaces), deployment/OTA to devices, Linux (non-ROS) runtime target,
 multi-user real-time editing, org component libraries UI.

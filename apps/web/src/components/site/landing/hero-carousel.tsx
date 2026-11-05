@@ -42,7 +42,7 @@ const SLIDES: Slide[] = [
     color: "#ff5a5f",
     title: ["Teach your robot", "how to think."],
     text: "Snap together events, sensors, conditions and motors. Your robot multitasks, and the emergency stop always wins.",
-    cta: { label: "Try it in the demo", href: "/demo/behavior" },
+    cta: { label: "Watch it drive in the demo", href: "/demo/simulate" },
   },
   {
     photo: "handsOnBoard",

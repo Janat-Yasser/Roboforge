@@ -95,6 +95,9 @@ function findGround(hw: HardwareIR, rc: ResolvedComponent): { componentId: strin
 function findSupply(hw: HardwareIR, rc: ResolvedComponent, pin: PinDef) {
   const range = pin.voltage;
   const isMotorSupply = rc.def.driverChannels?.some((c) => c.motorSupplyPin === pin.name) || !!rc.def.can;
+  // A regulator's input wants the raw supply (a battery), never a controller's regulated output.
+  const isRegulatorInput = rc.def.power?.kind === "regulator" && rc.def.power.inputPin === pin.name;
+  const wantsRaw = isMotorSupply || isRegulatorInput;
   const logic = hw.controller?.def.controller?.logicLevelV;
   const candidates: { rc: ResolvedComponent; pin: PinDef; voltage: number; rank: number }[] = [];
   for (const c of hw.components) {
@@ -105,13 +108,13 @@ function findSupply(hw: HardwareIR, rc: ResolvedComponent, pin: PinDef) {
       if (v.voltage === undefined) continue;
       if (range && (v.voltage < range.min || (v.maxVoltage ?? v.voltage) > range.max)) continue;
       let rank: number;
-      if (isMotorSupply) rank = c.def.power?.kind === "battery" ? 0 : c.def.power?.kind === "regulator" ? 1 : 3;
+      if (wantsRaw) rank = c.def.power?.kind === "battery" ? 0 : c.def.power?.kind === "regulator" ? 1 : 3;
       else if (c === hw.controller) rank = v.voltage === logic ? 0 : 1;
       else rank = c.def.power?.kind === "regulator" ? 2 : 3;
       candidates.push({ rc: c, pin: p, voltage: v.voltage, rank });
     }
   }
-  candidates.sort((a, b) => a.rank - b.rank || (isMotorSupply ? b.voltage - a.voltage : a.voltage - b.voltage));
+  candidates.sort((a, b) => a.rank - b.rank || (wantsRaw ? b.voltage - a.voltage : a.voltage - b.voltage));
   return candidates[0];
 }
 

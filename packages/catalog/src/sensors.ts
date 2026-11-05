@@ -221,4 +221,78 @@ const bumper: ComponentDefinitionInput = {
   geometry: { box: [0.02, 0.01, 0.006], massKg: 0.002 },
 };
 
-export const sensors = [vl53l0x, hcsr04, sharpIr, mpu6050, bno085, rplidarA1, estop, bumper];
+const jsnSr04t: ComponentDefinitionInput = {
+  id: "jsn-sr04t",
+  version: "1.0.0",
+  name: "JSN-SR04T Waterproof Ultrasonic Sensor",
+  manufacturer: "Generic",
+  category: "sensor",
+  description: "Sealed ultrasonic probe on a cable, for outdoor robots. HC-SR04-compatible TRIG/ECHO; 25–450 cm with a ~25 cm blind zone. 5 V supply.",
+  tags: ["distance", "ultrasonic", "sonar", "waterproof", "outdoor"],
+  interfaces: ["gpio"],
+  electrical: { typicalCurrentMa: 8, logicLevelV: 5 },
+  pins: [
+    { name: "VCC", type: "power_in", voltage: { min: 4.5, max: 5.5 } },
+    { name: "GND", type: "ground" },
+    { name: "TRIG", type: "digital_in" },
+    { name: "ECHO", type: "digital_out" },
+  ],
+  sensor: {
+    kind: "distance",
+    channels: [{ id: "distance_m", label: "Distance", unit: "m", range: [0.25, 4.5] }],
+    rosMessage: "sensor_msgs/msg/Range",
+  },
+  config: [{ key: "timeoutUs", label: "Echo timeout", type: "integer", default: 30000, min: 1000, max: 60000, unit: "µs" }],
+  driver: "hcsr04",
+  geometry: { box: [0.042, 0.027, 0.014], massKg: 0.02 },
+};
+
+const us100: ComponentDefinitionInput = {
+  id: "us-100",
+  version: "1.0.0",
+  name: "US-100 Ultrasonic Sensor (3.3 V-friendly)",
+  manufacturer: "Generic",
+  category: "sensor",
+  description:
+    "Temperature-compensated ultrasonic ranger, 2–450 cm. Runs from 2.4–5.5 V and its ECHO follows the supply, so at 3.3 V it is safe for an ESP32 without a level shifter. Remove the jumper for TRIG/ECHO mode.",
+  tags: ["distance", "ultrasonic", "sonar", "3.3v"],
+  interfaces: ["gpio"],
+  electrical: { typicalCurrentMa: 2, logicFollowsSupplyPin: "VCC" },
+  pins: [
+    { name: "VCC", type: "power_in", voltage: { min: 2.4, max: 5.5 } },
+    { name: "GND", type: "ground" },
+    { name: "TRIG", type: "digital_in" },
+    { name: "ECHO", type: "digital_out" },
+  ],
+  sensor: {
+    kind: "distance",
+    channels: [{ id: "distance_m", label: "Distance", unit: "m", range: [0.02, 4.5] }],
+    rosMessage: "sensor_msgs/msg/Range",
+  },
+  config: [{ key: "timeoutUs", label: "Echo timeout", type: "integer", default: 30000, min: 1000, max: 60000, unit: "µs" }],
+  driver: "hcsr04",
+  geometry: { box: [0.045, 0.02, 0.017], massKg: 0.009 },
+};
+
+const ttp223: ComponentDefinitionInput = {
+  id: "ttp223-touch",
+  version: "1.0.0",
+  name: "TTP223 Capacitive Touch Button",
+  manufacturer: "Generic",
+  category: "switch",
+  description: "Touch pad with an on-board controller. 2–5.5 V; SIG goes HIGH while touched. Handy as a start button.",
+  tags: ["button", "touch", "input"],
+  interfaces: ["gpio"],
+  electrical: { typicalCurrentMa: 1, logicFollowsSupplyPin: "VCC" },
+  pins: [
+    { name: "VCC", type: "power_in", voltage: { min: 2, max: 5.5 } },
+    { name: "GND", type: "ground" },
+    { name: "SIG", type: "digital_out" },
+  ],
+  sensor: { kind: "switch", channels: [{ id: "active", label: "Touched", unit: "bool" }] },
+  config: [{ key: "activeHigh", label: "Active when input is HIGH", type: "boolean", default: true }],
+  driver: "switch_input",
+  geometry: { box: [0.024, 0.015, 0.002], massKg: 0.001 },
+};
+
+export const sensors = [vl53l0x, hcsr04, jsnSr04t, us100, sharpIr, mpu6050, bno085, rplidarA1, estop, bumper, ttp223];

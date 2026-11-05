@@ -207,4 +207,67 @@ const mg996r: ComponentDefinitionInput = {
   geometry: { box: [0.04, 0.02, 0.043], massKg: 0.055 },
 };
 
-export const actuators = [tb6612, l298n, canBldc, dcGearmotor12v, ttMotor, bldcHub, sg90, mg996r];
+const n20Motor: ComponentDefinitionInput = {
+  id: "n20-micro-gearmotor-6v",
+  version: "1.0.0",
+  name: "N20 Micro Metal Gearmotor 6 V",
+  manufacturer: "Generic",
+  category: "motor",
+  description: "12 mm micro metal gearmotor for small robots and line followers. 3–6 V, ~60 mA no-load, ~0.75 A stall, about 300 rpm (100:1).",
+  tags: ["dc motor", "gearmotor", "micro", "n20"],
+  interfaces: ["motor"],
+  pins: [
+    { name: "M+", type: "motor_terminal" },
+    { name: "M-", type: "motor_terminal" },
+  ],
+  motor: { kind: "dc", ratedVoltage: { min: 3, max: 6 }, noLoadCurrentMa: 60, stallCurrentMa: 750, noLoadRpm: 300 },
+  config: [
+    { key: "invert", label: "Invert direction", type: "boolean", default: false },
+    { key: "wheelRadiusM", label: "Wheel radius", type: "number", default: 0.016, unit: "m" },
+  ],
+  geometry: { box: [0.012, 0.01, 0.034], massKg: 0.01 },
+};
+
+const jga25Motor: ComponentDefinitionInput = {
+  id: "jga25-370-12v",
+  version: "1.0.0",
+  name: "JGA25-370 Gearmotor 12 V",
+  manufacturer: "Generic",
+  category: "motor",
+  description: "25 mm metal-gear DC motor for rovers carrying a few kilograms. 6–12 V, ~100 mA no-load, ~1.8 A stall, 170 rpm.",
+  tags: ["dc motor", "gearmotor", "metal gear"],
+  interfaces: ["motor"],
+  pins: [
+    { name: "M+", type: "motor_terminal" },
+    { name: "M-", type: "motor_terminal" },
+  ],
+  motor: { kind: "dc", ratedVoltage: { min: 6, max: 12 }, noLoadCurrentMa: 100, stallCurrentMa: 1800, noLoadRpm: 170 },
+  config: [
+    { key: "invert", label: "Invert direction", type: "boolean", default: false },
+    { key: "wheelRadiusM", label: "Wheel radius", type: "number", default: 0.04, unit: "m" },
+  ],
+  geometry: { box: [0.025, 0.025, 0.075], massKg: 0.11 },
+};
+
+const ds3218: ComponentDefinitionInput = {
+  id: "servo-ds3218",
+  version: "1.0.0",
+  name: "DS3218 20 kg Servo",
+  manufacturer: "DSServo",
+  category: "servo",
+  description: "High-torque digital servo for arms and grippers, 4.8–6.8 V, about 20 kg·cm, ~2.5 A stall, 180°.",
+  tags: ["servo", "pwm", "metal gear", "high torque"],
+  interfaces: ["pwm"],
+  electrical: { typicalCurrentMa: 250, peakCurrentMa: 2500 },
+  pins: [
+    { name: "V+", type: "power_in", voltage: { min: 4.8, max: 6.8 } },
+    { name: "GND", type: "ground" },
+    { name: "SIG", type: "pwm_in" },
+  ],
+  servo: { angleRangeDeg: [0, 180], pulseRangeUs: [500, 2500], stallCurrentMa: 2500 },
+  config: [{ key: "trimDeg", label: "Trim", type: "number", default: 0, min: -20, max: 20, unit: "°" }],
+  driver: "hobby_servo",
+  geometry: { box: [0.04, 0.02, 0.04], massKg: 0.06 },
+};
+
+export const actuators = [tb6612, l298n, canBldc, dcGearmotor12v, ttMotor, n20Motor, jga25Motor, bldcHub, sg90, mg996r, ds3218];

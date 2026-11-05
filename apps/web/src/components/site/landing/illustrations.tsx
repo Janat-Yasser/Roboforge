@@ -1,5 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ARENAS, buildRobotIR, RobotSim } from "@roboforge/ir";
+import { drawArena } from "@/components/sim/simulator";
+import { builtinCatalog, demoSpec } from "@/lib/demo";
 import { AnimatePresence, motion } from "motion/react";
 import clsx from "clsx";
 import { AlertTriangle, CheckCircle2, XCircle } from "lucide-react";
@@ -103,8 +106,8 @@ const BLOCKS = [
   { t: "Robot started", c: "var(--rf-accent-3)", indent: 0 },
   { t: "Read front_tof → distance", c: "var(--rf-sig-uart)", indent: 0 },
   { t: "If distance < 0.5 m", c: "var(--rf-accent)", indent: 0 },
-  { t: "Stop all motors", c: "var(--rf-sig-motor)", indent: 1 },
-  { t: "Wait 1 s", c: "var(--rf-accent)", indent: 1 },
+  { t: "Turn on the spot", c: "var(--rf-sig-motor)", indent: 1 },
+  { t: "Wait 0.4 s", c: "var(--rf-accent)", indent: 1 },
   { t: "Otherwise: drive forward 40 %", c: "var(--rf-sig-motor)", indent: 1 },
   { t: "Repeat", c: "var(--rf-accent)", indent: 0 },
 ];
@@ -137,14 +140,14 @@ const CODE = `case 2: {  // distance < 0.5 m? [n_check]
   f.pc = (v_.distance < 0.5f) ? 3 : 5;
   break;
 }
-case 3: {  // Stop [n_stop]
-  r_.left_motor.stop();
-  r_.right_motor.stop();
+case 3: {  // Turn away [n_turn]
+  r_.left_motor.setSpeed(-0.35f);
+  r_.right_motor.setSpeed(0.35f);
   f.pc = 4;
   break;
 }
-case 4: {  // Wait 1 s — never blocks
-  if (!f.waiting) { f.waiting = true; f.wakeAt = now + 1000u; }
+case 4: {  // Wait 400 ms — never blocks
+  if (!f.waiting) { f.waiting = true; f.wakeAt = now + 400u; }
   if (static_cast<int32_t>(now - f.wakeAt) < 0) return;
   f.waiting = false;
   f.pc = 1;
@@ -222,6 +225,50 @@ export function PartsIllustration() {
           </motion.li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------------------------------ */
+
+/** The real simulator, running the demo robot's behavior on a loop. */
+export function SimIllustration() {
+  const ref = useRef<HTMLCanvasElement>(null);
+  const box = useRef<HTMLDivElement>(null);
+  const [stats, setStats] = useState({ t: 0, d: 0 });
+  useEffect(() => {
+    const spec = demoSpec();
+    const ir = buildRobotIR(spec, builtinCatalog());
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const arena = ARENAS[0]!;
+    let sim = new RobotSim(ir, { arena: { ...arena, obstacles: arena.obstacles.map((o) => ({ ...o })) }, seed: 3 });
+    if (reduced) sim.advance(20_000);
+    let raf = 0;
+    let last = performance.now();
+    let shown = 0;
+    const loop = (now: number) => {
+      const dt = Math.min(100, now - last);
+      last = now;
+      if (!reduced) sim.advance(dt * 2);
+      if (sim.t > 45_000) sim = new RobotSim(ir, { arena: { ...arena, obstacles: arena.obstacles.map((o) => ({ ...o })) }, seed: 3 });
+      const cv = ref.current;
+      const b = box.current;
+      if (cv && b) drawArena(cv, b.clientWidth, b.clientHeight, sim, 8);
+      if (now - shown > 250) {
+        shown = now;
+        setStats({ t: sim.t / 1000, d: sim.distance });
+      }
+      if (!reduced) raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+  return (
+    <div className="overflow-hidden rounded-2xl border border-border bg-panel p-5 shadow-[var(--rf-shadow-lg)]">
+      <PanelHead title="Simulate · Scout" meta={`${stats.t.toFixed(0)} s · ${stats.d.toFixed(1)} m`} />
+      <div ref={box} className="relative h-[260px]">
+        <canvas ref={ref} className="absolute inset-0" aria-label="The demo robot driving around a room and turning away from boxes" />
+      </div>
     </div>
   );
 }

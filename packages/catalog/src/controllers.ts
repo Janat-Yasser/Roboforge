@@ -279,4 +279,101 @@ const rpi4: ComponentDefinitionInput = {
   geometry: { box: [0.085, 0.056, 0.017], massKg: 0.046 },
 };
 
-export const controllers = [esp32DevkitC, arduinoUno, nucleoF446, rpi4];
+/* ------------------------------------------------------------------------------------------ */
+/* Arduino Nano (ATmega328P)                                                                  */
+/* ------------------------------------------------------------------------------------------ */
+
+const arduinoNano: ComponentDefinitionInput = {
+  id: "arduino-nano",
+  version: "1.0.0",
+  name: "Arduino Nano",
+  manufacturer: "Arduino",
+  category: "controller",
+  description:
+    "The Uno's ATmega328P on a breadboard-sized board. 5 V I/O, 6 PWM, one I²C (A4/A5). A6 and A7 are analog inputs only.",
+  tags: ["arduino", "avr", "atmega328p", "mcu", "nano"],
+  datasheetUrl: "https://docs.arduino.cc/hardware/nano",
+  interfaces: ["gpio", "pwm", "adc", "i2c", "spi", "uart"],
+  electrical: { typicalCurrentMa: 25, peakCurrentMa: 200, logicLevelV: 5 },
+  controller: {
+    platform: "avr",
+    logicLevelV: 5,
+    platformio: { platform: "atmelavr", board: "nanoatmega328new", framework: "arduino" },
+    defaultBuses: { i2c: [{ bus: "i2c0", sda: "A4", scl: "A5" }] },
+    peripherals: { i2c: ["i2c0"], uart: ["uart0"], can: [], spi: ["spi0"] },
+    maxPinCurrentMa: 20,
+  },
+  pins: [
+    { name: "VIN", type: "power_in", voltage: { min: 7, max: 12 }, notes: "Leave unconnected when powered over USB." },
+    { name: "5V", type: "power_out", outputVoltage: 5, maxCurrentMa: 400 },
+    { name: "3V3", type: "power_out", outputVoltage: 3.3, maxCurrentMa: 50 },
+    { name: "GND", type: "ground" },
+    { name: "GND_2", label: "GND", type: "ground" },
+    ...Array.from({ length: 14 }, (_, i) => unoDigital(i)),
+    ...Array.from({ length: 6 }, (_, i) => unoAnalog(i)),
+    ...[6, 7].map((n): PinDefInputLike => ({ name: `A${n}`, type: "gpio", codeRef: `A${n}`, functions: [{ fn: "adc" }], flags: ["input_only"], fiveVoltTolerant: true })),
+  ],
+  geometry: { box: [0.045, 0.018, 0.012], massKg: 0.007 },
+};
+
+/* ------------------------------------------------------------------------------------------ */
+/* Arduino Mega 2560 Rev3                                                                     */
+/* ------------------------------------------------------------------------------------------ */
+
+const MEGA_PWM = new Set([2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 44, 45, 46]);
+const MEGA_UART: Record<number, [string, string]> = {
+  0: ["uart_rx", "uart0"], 1: ["uart_tx", "uart0"],
+  19: ["uart_rx", "uart1"], 18: ["uart_tx", "uart1"],
+  17: ["uart_rx", "uart2"], 16: ["uart_tx", "uart2"],
+  15: ["uart_rx", "uart3"], 14: ["uart_tx", "uart3"],
+};
+
+function megaDigital(n: number): PinDefInputLike {
+  const functions: { fn: string; bus?: string }[] = [{ fn: "gpio_in" }, { fn: "gpio_out" }];
+  if (MEGA_PWM.has(n)) functions.push({ fn: "pwm" });
+  const u = MEGA_UART[n];
+  if (u) functions.push({ fn: u[0], bus: u[1] });
+  if (n === 20) functions.push({ fn: "i2c_sda", bus: "i2c0" });
+  if (n === 21) functions.push({ fn: "i2c_scl", bus: "i2c0" });
+  if (n === 50) functions.push({ fn: "spi_miso", bus: "spi0" });
+  if (n === 51) functions.push({ fn: "spi_mosi", bus: "spi0" });
+  if (n === 52) functions.push({ fn: "spi_sck", bus: "spi0" });
+  return { name: `D${n}`, type: "gpio", codeRef: String(n), functions, flags: n <= 1 ? ["console"] : [], fiveVoltTolerant: true };
+}
+
+const arduinoMega: ComponentDefinitionInput = {
+  id: "arduino-mega-2560",
+  version: "1.0.0",
+  name: "Arduino Mega 2560 Rev3",
+  manufacturer: "Arduino",
+  category: "controller",
+  description:
+    "ATmega2560 16 MHz board for robots with many parts: 54 digital pins (15 PWM), 16 analog inputs, 4 UARTs, I²C on D20/D21. 5 V I/O.",
+  tags: ["arduino", "avr", "atmega2560", "mcu", "mega"],
+  datasheetUrl: "https://docs.arduino.cc/hardware/mega-2560",
+  interfaces: ["gpio", "pwm", "adc", "i2c", "spi", "uart"],
+  electrical: { typicalCurrentMa: 70, peakCurrentMa: 400, logicLevelV: 5 },
+  controller: {
+    platform: "avr",
+    logicLevelV: 5,
+    platformio: { platform: "atmelavr", board: "megaatmega2560", framework: "arduino" },
+    defaultBuses: {
+      i2c: [{ bus: "i2c0", sda: "D20", scl: "D21" }],
+      uart: [{ bus: "uart1", tx: "D18", rx: "D19" }, { bus: "uart2", tx: "D16", rx: "D17" }],
+    },
+    peripherals: { i2c: ["i2c0"], uart: ["uart0", "uart1", "uart2", "uart3"], can: [], spi: ["spi0"] },
+    maxPinCurrentMa: 20,
+  },
+  pins: [
+    { name: "VIN", type: "power_in", voltage: { min: 7, max: 12 }, notes: "Barrel/VIN input. Leave unconnected when powered over USB." },
+    { name: "5V", type: "power_out", outputVoltage: 5, maxCurrentMa: 800 },
+    { name: "3V3", type: "power_out", outputVoltage: 3.3, maxCurrentMa: 50 },
+    { name: "GND", type: "ground" },
+    { name: "GND_2", label: "GND", type: "ground" },
+    ...Array.from({ length: 54 }, (_, i) => megaDigital(i)),
+    ...Array.from({ length: 16 }, (_, i): PinDefInputLike => ({ name: `A${i}`, type: "gpio", codeRef: `A${i}`, functions: [{ fn: "gpio_in" }, { fn: "gpio_out" }, { fn: "adc" }], fiveVoltTolerant: true })),
+  ],
+  geometry: { box: [0.1016, 0.0533, 0.015], massKg: 0.037 },
+};
+
+export const controllers = [esp32DevkitC, arduinoUno, arduinoNano, arduinoMega, nucleoF446, rpi4];

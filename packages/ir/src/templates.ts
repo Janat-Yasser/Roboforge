@@ -108,8 +108,12 @@ export function obstacleAvoidance(tofId: string, leftId: string, rightId: string
       label: "distance < 0.5 m?",
       params: { left: { kind: "var", name: "distance" }, op: "<", right: { kind: "const", value: 0.5 } },
     }),
-    n("n_stop", -220, 460, { kind: "motor.stop", label: "Stop", params: { componentIds: [] } }),
-    n("n_wait_stop", -220, 600, { kind: "delay", label: "Wait 1 s", params: { ms: 1000 } }),
+    n("n_turn", -220, 460, {
+      kind: "motor.set",
+      label: "Turn away",
+      params: { commands: [{ componentId: leftId, speed: -0.35 }, { componentId: rightId, speed: 0.35 }] },
+    }),
+    n("n_wait_turn", -220, 600, { kind: "delay", label: "Wait 400 ms", params: { ms: 400 } }),
     n("n_drive", 220, 460, {
       kind: "motor.set",
       label: "Drive forward",
@@ -123,10 +127,10 @@ export function obstacleAvoidance(tofId: string, leftId: string, rightId: string
     e("n_read", "error", "n_read_fail"),
     e("n_read_fail", "next", "n_wait_fail"),
     e("n_wait_fail", "next", "n_read"),
-    e("n_check", "true", "n_stop"),
+    e("n_check", "true", "n_turn"),
     e("n_check", "false", "n_drive"),
-    e("n_stop", "next", "n_wait_stop"),
-    e("n_wait_stop", "next", "n_read"),
+    e("n_turn", "next", "n_wait_turn"),
+    e("n_wait_turn", "next", "n_read"),
     e("n_drive", "next", "n_wait_drive"),
     e("n_wait_drive", "next", "n_read"),
   ];

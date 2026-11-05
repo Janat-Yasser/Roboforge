@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import clsx from "clsx";
-import { Boxes, Bot, Cable, Code2, FileText, Gauge, GraduationCap, Hammer, Loader2, Package, Sparkles, Workflow, Wand2 } from "lucide-react";
+import { Boxes, Bot, Cable, Code2, FileText, Gauge, GraduationCap, Hammer, Loader2, Package, Play, Sparkles, Workflow, Wand2 } from "lucide-react";
 import { api } from "@/lib/api";
 import { flushCommands, useBasePath, useProject } from "@/lib/store";
 import { toast } from "@/lib/toast";
@@ -20,6 +20,7 @@ const NAV = [
   { href: "hardware", label: "Hardware", icon: Boxes },
   { href: "wiring", label: "Wiring", icon: Cable },
   { href: "behavior", label: "Behavior", icon: Workflow },
+  { href: "simulate", label: "Simulate", icon: Play },
   { href: "code", label: "Code", icon: Code2 },
   { href: "build", label: "Build & Tests", icon: Hammer },
   { href: "docs", label: "Docs", icon: FileText },

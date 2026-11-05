@@ -21,3 +21,5 @@ export function buildRobotIR(spec: RobotSpec, catalog: Catalog): RobotIR {
   return { spec, catalog, hardware, behavior: behavior.ir, diagnostics: behavior.diagnostics };
 }
 export { createFromTemplate, obstacleAvoidance, TEMPLATES, type TemplateId } from "./templates";
+export { BehaviorRuntime, type RuntimeIO } from "./sim/runtime";
+export { RobotSim, ARENAS, type Arena, type Obstacle, type Pose, type SimSensor, type SimLogLine, type SimOptions } from "./sim/world";
