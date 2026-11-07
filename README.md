@@ -1,6 +1,9 @@
 # RoboForge
 
 [![CI](https://github.com/Janat-Yasser/Roboforge/actions/workflows/ci.yml/badge.svg)](https://github.com/Janat-Yasser/Roboforge/actions/workflows/ci.yml)
+[![Live demo](https://github.com/Janat-Yasser/Roboforge/actions/workflows/pages.yml/badge.svg)](https://janat-yasser.github.io/Roboforge/demo/simulate/)
+
+**[Try it in your browser →](https://janat-yasser.github.io/Roboforge/demo/simulate/)** No install, no account.
 
 An engineering IDE for robots. Describe a robot once — hardware, wiring, behavior — and RoboForge
 validates it and generates a real, editable, Git-ready codebase: PlatformIO firmware (ESP32 / Arduino /
@@ -10,7 +13,10 @@ anything, you can watch the robot run its behavior in a 2D simulator.
 
 ![The demo rover in the simulator: it drives across a room, its distance sensor's ray finds a wall, it turns away, then the e-stop is pressed and everything stops](docs/img/simulator.gif)
 
-After `pnpm dev`, open `/demo` for a ready-made rover. It runs entirely in the browser, with no account and nothing saved.
+The [live demo](https://janat-yasser.github.io/Roboforge/demo/) is the same ready-made rover you get at `/demo` after `pnpm dev`:
+edit the robot, wiring and behavior, read the generated code and run it in the simulator. It runs entirely in the browser,
+so nothing is saved. Accounts, saved projects, builds and the AI assistant need the full app (see Quick start).
+The static site is built by `apps/web/scripts/build-static.mjs`.
 
 | Wire it, with live checks | Program it with blocks |
 |---|---|

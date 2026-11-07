@@ -11,3 +11,5 @@ apps/web/public/monaco/
 next-env.d.ts
 e2e/screenshots/
 *.gitbundle
+apps/web/out-static/
+apps/.web-static/

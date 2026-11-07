@@ -1,0 +1,41 @@
+# Copyright (c) 2026 Janat Yasser. All rights reserved.
+# Publishes the public part of RoboForge (landing, parts, courses and the /demo workspace)
+# to GitHub Pages as a static site. One-time setup: Settings -> Pages -> Source: "GitHub Actions".
+name: Live demo
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: node apps/web/scripts/build-static.mjs
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/web/out-static
+      - id: deployment
+        uses: actions/deploy-pages@v4
